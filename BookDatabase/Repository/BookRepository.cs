@@ -7,7 +7,6 @@ namespace BookDatabase.Repository
     internal class BookRepository : IBookRepository
     {
         private readonly ConcurrentDictionary<Guid, Book> books = new();
-        private readonly object saleCountLock = new();
 
         public void AddOrUpdate(Book book)
         {
@@ -42,10 +41,7 @@ namespace BookDatabase.Repository
                 return new NotFoundResult<Book>();
             }
 
-            lock (this.saleCountLock)
-            {
-                book.SalesCount++;
-            }
+            book.IncrementSalesCount();
 
             return new SuccessfulResult<Book>(book);
         }
