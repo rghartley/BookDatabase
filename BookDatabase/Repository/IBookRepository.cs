@@ -12,5 +12,7 @@ namespace BookDatabase.Repository
         Result<Book> Get(Guid id);
 
         IEnumerable<Book> Get();
+
+        Result<Book> IncrementSaleCount(Guid id);
     }
 }

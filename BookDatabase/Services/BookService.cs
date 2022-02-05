@@ -61,5 +61,10 @@ namespace BookDatabase.Services
         {
             this.bookRepository.Delete(Id);
         }
+
+        public Result<Book> IncrementSaleCount(Guid id)
+        {
+            return this.bookRepository.IncrementSaleCount(id);
+        }
     }
 }

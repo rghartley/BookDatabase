@@ -83,5 +83,25 @@ namespace BookDatabase.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route("Sale")]
+        public ActionResult<Book> PostBookSale([FromBody] BookSaleRequest bookSaleRequest)
+        {
+            var result = this.bookService.IncrementSaleCount(bookSaleRequest.BookId);
+
+            if (result is SuccessfulResult<Book> successfulResult)
+            {
+                return Ok(successfulResult.Value);
+            }
+            else if (result is NotFoundResult<Book>)
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw new BookException(bookSaleRequest.BookId, result, $"Failed to increment sale count for book {bookSaleRequest.BookId}");
+            }
+        }
     }
 }

@@ -15,5 +15,7 @@ namespace BookDatabase.Services
         Result<Book> Update(Guid Id, BookRequest bookRequest);
 
         void Delete(Guid Id);
+
+        Result<Book> IncrementSaleCount(Guid id);
     }
 }
